@@ -21,9 +21,18 @@ const signup = async (req, res) => {
   const msg = {
     to: email,
     subject: 'Confirm Your Email',
+    // html: `
+    //   <a href="http://localhost:4000/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
+    //   `,
     html: `
-      <a href="http://localhost:4000/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
-      `,
+    <h2>Hi ${name}</h2>
+<p>We just need to verify your email address before you can access Kpu$ta.</p>
+
+<p>Verify your email address</p>
+<a href="http://localhost:4000/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
+
+<p>Thanks! &#8211; The ItNinja team</p>
+    `,
   };
 
   await sendEmail(msg);
