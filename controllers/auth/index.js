@@ -5,6 +5,7 @@ const login = require('./login');
 const logout = require('./logout');
 const balance = require('./balance');
 const addBalance = require('./addBalance');
+const updateBalance = require('./updateBalance');
 
 module.exports = {
   signup,
@@ -14,4 +15,5 @@ module.exports = {
   repeatVerification,
   balance,
   addBalance,
+  updateBalance,
 };
