@@ -1,0 +1,20 @@
+const express = require('express');
+const router = express.Router();
+const { categories: ctrl } = require('../../controllers');
+const {
+  controllerWrapper,
+  validation,
+  authenticate,
+} = require('../../middlewares');
+const { categorySchemaJoi } = require('../../models/categories');
+
+router.get('/', controllerWrapper(ctrl.getAllCategories));
+router.get('/expense', controllerWrapper(ctrl.getExpenseCategories));
+router.post(
+  '/expense',
+  authenticate,
+  validation(categorySchemaJoi),
+  controllerWrapper(ctrl.addExpenseCategory),
+);
+
+module.exports = router;
