@@ -22,4 +22,12 @@ router.delete(
 
 router.get('/expense/report', controllerWrapper(ctrl.getExpenseReport));
 
+// маршрут энд-поинта получения дохода
+router.post(
+  '/incom/:categoryId',
+  authenticate,
+  validation(transactionsSchemaJoi),
+  controllerWrapper(ctrl.addIncomTransaction),
+);
+
 module.exports = router;
