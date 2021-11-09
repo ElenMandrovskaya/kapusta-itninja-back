@@ -8,7 +8,7 @@ const transactionSchema = Schema(
       month: String,
       year: String,
     },
-    name: {
+    description: {
       type: String,
       required: [true, 'This field is required'],
     },
@@ -39,7 +39,7 @@ const transactionsSchemaJoi = Joi.object({
     month: Joi.string(),
     year: Joi.string(),
   }),
-  name: Joi.string().required(),
+  description: Joi.string().required(),
   value: Joi.number().required(),
   category: Joi.string(),
   expenses: Joi.boolean(),
