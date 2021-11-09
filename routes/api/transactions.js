@@ -20,4 +20,12 @@ router.delete(
   controllerWrapper(ctrl.deleteTransaction),
 );
 
+// маршрут энд-поинта получения дохода
+router.post(
+  '/incom/:categoryId',
+  authenticate,
+  validation(transactionsSchemaJoi),
+  controllerWrapper(ctrl.addIncomTransaction),
+);
+
 module.exports = router;
