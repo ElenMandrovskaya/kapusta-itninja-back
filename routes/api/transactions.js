@@ -20,4 +20,6 @@ router.delete(
   controllerWrapper(ctrl.deleteTransaction),
 );
 
+router.get('/expense/report', controllerWrapper(ctrl.getExpenseReport));
+
 module.exports = router;
