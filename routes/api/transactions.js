@@ -20,8 +20,6 @@ router.delete(
   controllerWrapper(ctrl.deleteTransaction),
 );
 
-router.get('/expense/report', controllerWrapper(ctrl.getExpenseReport));
-
 // маршрут энд-поинта получения дохода
 router.post(
   '/incom/:categoryId',
