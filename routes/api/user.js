@@ -21,5 +21,6 @@ router.get('/balance', authenticate, controllerWrapper(ctrl.balance));
 router.post('/balance', authenticate, controllerWrapper(ctrl.addBalance));
 router.patch('/balance', authenticate, controllerWrapper(ctrl.updateBalance));
 router.get('/logout', authenticate, controllerWrapper(ctrl.logout));
+router.get('/current', authenticate, controllerWrapper(ctrl.current));
 
 module.exports = router;
