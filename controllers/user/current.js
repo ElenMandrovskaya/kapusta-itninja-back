@@ -9,8 +9,8 @@ const current = async (req, res) => {
     throw new Unauthorized('Not authorized');
   }
 
-  const { email } = user;
-  sendSuccessResponse(res, { email }, 201);
+  // const { email } = user;
+  sendSuccessResponse(res, { user }, 201);
 };
 
 module.exports = current;
