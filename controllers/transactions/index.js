@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 const addExpenseTransaction = require('./addExpenseTransaction');
 const deleteTransaction = require('./deleteTransaction');
 const addIncomTransaction = require('./addIncomTransaction');

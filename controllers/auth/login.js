@@ -15,6 +15,7 @@ const login = async (req, res) => {
   }
 
   const token = user.createToken();
+
   await User.findByIdAndUpdate(user._id, { token });
   sendSuccessResponse(res, { token, user: { name, email } });
 };

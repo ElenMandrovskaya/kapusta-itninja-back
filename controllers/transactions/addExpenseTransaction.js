@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 const { NotFound } = require('http-errors');
 const { Transaction } = require('../../models');
 const { Category } = require('../../models');
@@ -10,7 +11,7 @@ const addExpenseTransaction = async (req, res) => {
   const category = await Category.findById({ _id: categoryId });
 
   if (!category) {
-    throw new NotFound(`Category not found`);
+    throw new NotFound('Category not found');
   }
 
   const { name, typeOfOperation } = category;
