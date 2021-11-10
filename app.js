@@ -6,6 +6,7 @@ require('dotenv').config();
 const categoriesRouter = require('./routes/api/categories');
 const userRouter = require('./routes/api/user');
 const transactionsRouter = require('./routes/api/transactions');
+const reportsRouter = require('./routes/api/reports');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.static('public'));
 app.use('/api/categories', categoriesRouter);
 app.use('/api/user', userRouter);
 app.use('/api/transactions', transactionsRouter);
+app.use('/api/reports', reportsRouter);
 
 app.use((req, res) => {
   res.status(404).json({

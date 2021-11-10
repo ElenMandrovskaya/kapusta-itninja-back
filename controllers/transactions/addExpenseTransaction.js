@@ -4,10 +4,15 @@ const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
 const addExpenseTransaction = async (req, res) => {
+  const { balance } = req.user;
   const { categoryId } = req.params;
   const { day, month, year } = req.query;
 
   const category = await Category.findById({ _id: categoryId });
+
+  if (!balance) {
+    throw new BadRequest(`There are no money on your balance`);
+  }
 
   if (!category) {
     throw new NotFound(`Category not found`);
