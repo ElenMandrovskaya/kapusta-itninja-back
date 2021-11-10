@@ -4,6 +4,7 @@ const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
 const addExpenseTransaction = async (req, res) => {
+  const { balance } = req.user;// проверить баланс?
   const { categoryId } = req.params;
   const { day, month, year } = req.query;
 
