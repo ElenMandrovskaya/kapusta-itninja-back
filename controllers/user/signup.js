@@ -18,7 +18,7 @@ const signup = async (req, res) => {
 
   const { verifyToken } = await newUser.save();
 
-  const msg = {
+ const msg = {
     to: email,
     subject: 'Confirm Your Email',
     html: `
@@ -32,7 +32,7 @@ const signup = async (req, res) => {
       `,
   };
 
-  await sendEmail(msg);
+  await sendEmail(msg); 
   sendSuccessResponse(res, { name, email, verifyToken }, 201);
 };
 
