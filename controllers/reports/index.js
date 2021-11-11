@@ -1,7 +1,5 @@
-const getTransactionsByCategory = require('./getTransactionsByCategory');
-const getTransactionsByDescription = require('./getTransactionsByDescription');
+const getTransactionsReport = require('./getTransactionsReport');
 
 module.exports = {
-  getTransactionsByDescription,
-  getTransactionsByCategory,
+  getTransactionsReport,
 };

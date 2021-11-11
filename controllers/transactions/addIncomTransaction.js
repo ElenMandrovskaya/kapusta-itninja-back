@@ -4,7 +4,7 @@ const { Transaction } = require('../../models');
 const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
-const addIncomTransaction = async (res, req) => {
+const addIncomTransaction = async (req, res) => {
   const { categoryId } = req.params;
   console.log(categoryId);
   const { day, month, year } = req.query;
