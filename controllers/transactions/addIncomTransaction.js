@@ -1,10 +1,12 @@
+/* eslint-disable semi */
 const { NotFound } = require('http-errors');
 const { Transaction } = require('../../models');
 const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
-const addIncomTransaction = async (res, req) => {
+const addIncomTransaction = async (req, res) => {
   const { categoryId } = req.params;
+  console.log(categoryId);
   const { day, month, year } = req.query;
 
   // получаем категорию из БД
@@ -33,6 +35,4 @@ const addIncomTransaction = async (res, req) => {
   sendSuccessResponse(res, { result }, 201);
 };
 
-module.export = {
-  addIncomTransaction,
-};
+module.exports = addIncomTransaction;

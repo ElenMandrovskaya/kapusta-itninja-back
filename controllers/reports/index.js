@@ -1,7 +1,5 @@
-const getExpenseReport = require('./getExpenseReport');
-// const getExpenseReportByMonth_Oks = require('./getExpenseReportByMonth_Oks');
+const getTransactionsReport = require('./getTransactionsReport');
 
 module.exports = {
-  getExpenseReport,
-  // const getExpenseReportByMonth_Oks
+  getTransactionsReport,
 };
