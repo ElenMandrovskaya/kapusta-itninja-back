@@ -22,7 +22,7 @@ router.delete(
 
 // маршрут энд-поинта получения дохода
 router.post(
-  '/incom/:categoryId',
+  '/income/:categoryId',
   authenticate,
   validation(transactionsSchemaJoi),
   controllerWrapper(ctrl.addIncomTransaction),
