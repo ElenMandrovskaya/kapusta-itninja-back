@@ -8,7 +8,7 @@ const updateBalance = async (req, res) => {
 
   const transaction = await Transaction.findOne({ owner: _id });
   if (!transaction) {
-    throw new NotFound(`User not found`);
+    throw new NotFound('User not found');
   }
 
   const { value, expenses } = transaction;

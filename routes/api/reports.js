@@ -10,6 +10,7 @@ router.get(
   controllerWrapper(ctrl.getTransactionsReport),
 );
 router.get('/expense', authenticate, controllerWrapper(ctrl.getExpenseReport));
+router.get('/income', authenticate, controllerWrapper(ctrl.getIncomeReport));
 
 // router.get(
 //   '/expense/monthly',

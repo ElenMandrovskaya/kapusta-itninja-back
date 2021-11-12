@@ -18,4 +18,11 @@ router.post(
   controllerWrapper(ctrl.addExpenseCategory),
 );
 
+router.post(
+  '/income',
+  authenticate,
+  validation(categorySchemaJoi),
+  controllerWrapper(ctrl.addIncomeCategory),
+);
+
 module.exports = router;
