@@ -10,6 +10,7 @@ const { categorySchemaJoi } = require('../../models/categories');
 
 router.get('/', controllerWrapper(ctrl.getAllCategories));
 router.get('/expense', controllerWrapper(ctrl.getExpenseCategories));
+router.get('/income', controllerWrapper(ctrl.getIncomeCategories));
 router.post(
   '/expense',
   authenticate,
