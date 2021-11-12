@@ -1,5 +1,5 @@
 /* eslint-disable semi */
-const { NotFound } = require('http-errors');
+const { NotFound, BadRequest } = require('http-errors');
 const { Transaction } = require('../../models');
 const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');

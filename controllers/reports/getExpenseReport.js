@@ -5,7 +5,7 @@ const { sendSuccessResponse } = require('../../utils');
 const getExpenseReport = async (req, res) => {
   const { _id } = req.user;
   const transactions = await Transaction.find({
-    typeOfOperation: false,
+    expenses: false,
     owner: _id,
   });
 

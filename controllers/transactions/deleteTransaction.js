@@ -23,7 +23,7 @@ const deleteTransaction = async (req, res) => {
     { new: true },
   );
 
-  sendSuccessResponse(res, { message: 'Success remove', transaction });
+  sendSuccessResponse(res, { message: 'Success remove' });
 };
 
 module.exports = deleteTransaction;

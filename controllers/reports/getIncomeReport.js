@@ -5,9 +5,10 @@ const { sendSuccessResponse } = require('../../utils');
 const getIncomeReport = async (req, res) => {
   const { _id } = req.user;
   const transactions = await Transaction.find({
-    typeOfOperation: true,
+    expenses: true,
     owner: _id,
   });
+  console.log(_id);
 
   if (!transactions) {
     throw new NotFound('Transactions not found');
