@@ -26,7 +26,7 @@ const signup = async (req, res) => {
   <p>We just need to verify your email address before you can access Kapu$ta.</p>
 
   <p>Verify your email address</p>
-  <a href="https://kapusta-finance-tracker.herokuapp.com/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
+  <a href="https://kapusta-finance-tracker.herokuapp.com/api/user/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
 
   <p>Thanks! &#8211; The ItNinja team</p>
       `,
