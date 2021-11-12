@@ -18,21 +18,21 @@ const signup = async (req, res) => {
 
   const { verifyToken } = await newUser.save();
 
- const msg = {
+  const msg = {
     to: email,
     subject: 'Confirm Your Email',
     html: `
       <h2>Hi ${name}</h2>
-  <p>We just need to verify your email address before you can access Kpu$ta.</p>
+  <p>We just need to verify your email address before you can access Kapu$ta.</p>
 
   <p>Verify your email address</p>
-  <a href="http://localhost:4000/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
+  <a href="https://kapusta-finance-tracker.herokuapp.com/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
 
   <p>Thanks! &#8211; The ItNinja team</p>
       `,
   };
 
-  await sendEmail(msg); 
+  await sendEmail(msg);
   sendSuccessResponse(res, { name, email, verifyToken }, 201);
 };
 

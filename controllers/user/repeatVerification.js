@@ -10,6 +10,7 @@ const repeatVerification = async (req, res) => {
   }
 
   const user = await User.findOne({ email });
+  const { name, verifyToken } = user;
 
   if (!user) {
     throw new NotFound('User not found');
@@ -23,8 +24,14 @@ const repeatVerification = async (req, res) => {
     to: email,
     subject: 'Confirm Your Email',
     html: `
-    <a href="http://localhost:3000/api/auth/verify/${user.verifyToken}" target="_blank">Let's confirm your email address</a>
-    `,
+      <h2>Hi ${name}</h2>
+  <p>We just need to verify your email address before you can access Kapu$ta.</p>
+
+  <p>Verify your email address</p>
+  <a href="https://kapusta-finance-tracker.herokuapp.com/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
+
+  <p>Thanks! &#8211; The ItNinja team</p>
+      `,
   };
 
   await sendEmail(msg);

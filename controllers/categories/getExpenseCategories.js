@@ -2,8 +2,8 @@ const { NotFound } = require('http-errors');
 const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
-const getAllCategories = async (req, res) => {
-  const categories = await Category.find({}, 'name');
+const getExpenseCategories = async (req, res) => {
+  const categories = await Category.find({ typeOfOperation: false }, 'name');
 
   if (!categories) {
     throw new NotFound('Categories not found');
@@ -12,4 +12,4 @@ const getAllCategories = async (req, res) => {
   sendSuccessResponse(res, { categories });
 };
 
-module.exports = getAllCategories;
+module.exports = getExpenseCategories;
