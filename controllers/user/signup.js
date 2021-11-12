@@ -23,7 +23,7 @@ const signup = async (req, res) => {
     subject: 'Confirm Your Email',
     html: `
       <h2>Hi ${name}</h2>
-  <p>We just need to verify your email address before you can access Kpu$ta.</p>
+  <p>We just need to verify your email address before you can access Kapu$ta.</p>
 
   <p>Verify your email address</p>
   <a href="https://kapusta-finance-tracker.herokuapp.com/api/auth/verify/${verifyToken}" target="_blank">Let's confirm your email address</a>
