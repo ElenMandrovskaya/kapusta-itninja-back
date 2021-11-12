@@ -3,7 +3,7 @@ const { BadRequest, Unauthorized } = require('http-errors');
 const { sendSuccessResponse } = require('../../utils');
 
 const login = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (!user || !user.comparePassword(password)) {
@@ -14,9 +14,12 @@ const login = async (req, res) => {
     throw new BadRequest('Email is not verify');
   }
 
+  const { name, balance } = user;
+  console.log(name);
+
   const token = user.createToken();
   await User.findByIdAndUpdate(user._id, { token });
-  sendSuccessResponse(res, { token, user: { name, email } });
+  sendSuccessResponse(res, { token, user: { name, email, balance } });
 };
 
 module.exports = login;
