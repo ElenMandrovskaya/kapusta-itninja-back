@@ -2,10 +2,10 @@ const { NotFound, BadRequest } = require('http-errors');
 const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
-const getExpenseReport = async (req, res) => {
+const getIncomeReport = async (req, res) => {
   const { _id } = req.user;
   const transactions = await Transaction.find({
-    typeOfOperation: false,
+    typeOfOperation: true,
     owner: _id,
   });
 
@@ -45,4 +45,4 @@ const getExpenseReport = async (req, res) => {
   sendSuccessResponse(res, { finalReportArray }, 200);
 };
 
-module.exports = getExpenseReport;
+module.exports = getIncomeReport;

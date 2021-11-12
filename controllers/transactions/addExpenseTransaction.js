@@ -12,7 +12,7 @@ const addExpenseTransaction = async (req, res) => {
   const category = await Category.findById({ _id: categoryId });
 
   if (!balance) {
-    throw new BadRequest(`There are no money on your balance`);
+    throw new BadRequest('There are no money on your balance');
   }
 
   if (!category) {

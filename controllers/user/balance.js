@@ -7,7 +7,7 @@ const balance = async (req, res) => {
   const user = await User.findById(_id);
 
   if (!user) {
-    throw new NotFound(`User not found`);
+    throw new NotFound('User not found');
   }
   if (!user.verify) {
     throw new BadRequest('Email is not verify');
