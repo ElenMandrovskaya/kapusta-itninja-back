@@ -4,6 +4,7 @@ const { sendSuccessResponse } = require('../../utils');
 
 const getIncomeReport = async (req, res) => {
   const { _id } = req.user;
+  const { year } = req.query;
   const transactions = await Transaction.find({
     expenses: true,
     owner: _id,
@@ -19,12 +20,14 @@ const getIncomeReport = async (req, res) => {
     const { month } = transaction.date;
     const { value } = transaction;
 
-    const record = {
-      month,
-      value,
-    };
+    if (year === transaction.date.year) {
+      const record = {
+        month,
+        value,
+      };
 
-    reportArray.push(record);
+      reportArray.push(record);
+    }
   });
 
   const reducer = reportArray.reduce(
@@ -40,7 +43,7 @@ const getIncomeReport = async (req, res) => {
     .sort((a, b) => (a.month < b.month ? 1 : b.month < a.month ? -1 : 0));
 
   if (finalReportArray.length === 0) {
-    throw new BadRequest('There are no transactions on this month');
+    throw new BadRequest('There are no transactions on this year');
   }
 
   sendSuccessResponse(res, { finalReportArray }, 200);
