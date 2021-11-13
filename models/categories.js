@@ -22,7 +22,7 @@ const categorySchema = Schema(
 const categorySchemaJoi = Joi.object({
   name: Joi.string().required(),
   typeOfOperation: Joi.boolean(),
-  icons: Joi.string(),
+  icon: Joi.string(),
 });
 
 const Category = model('category', categorySchema);
