@@ -25,6 +25,9 @@ const transactionSchema = Schema(
       type: String,
       required: [true, 'This field is required'],
     },
+    icon: {
+      type: String,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
@@ -42,6 +45,7 @@ const transactionsSchemaJoi = Joi.object({
   description: Joi.string().required(),
   value: Joi.number().required(),
   category: Joi.string(),
+  icon: Joi.string(),
   expenses: Joi.boolean(),
 });
 

@@ -28,7 +28,7 @@ const addIncomTransaction = async (req, res) => {
     owner: req.user._id,
     category: name,
     expenses: typeOfOperation,
-    icon: icon,
+    icon,
   };
 
   const result = await Transaction.create(newTransaction);
