@@ -61,35 +61,38 @@ const getExpenseReportByMonth = async (req, res) => {
     }
   });
 
-  const temp = transactionsByMonth.filter(item => item.category === 'Продукты');
-  console.log(temp);
-
   // вычисление расходов по категория
   const reducerCategory = transactionsByMonth.reduce(
     (acc, c) => ((acc[c.category] = (acc[c.category] || 0) + c.value), acc),
     {},
   );
 
-  console.log(reducerCategory);
-
   // получение расходов по описаниям
-  const reducerDiscription = temp.reduce(
+  const reducerDiscription = transactionsByMonth.reduce(
     (acc, c) => (
       (acc[c.description] = (acc[c.description] || 0) + c.value), acc
     ),
     {},
   );
 
-  console.log(reducerDiscription);
-
   const result = Object.keys(reducerCategory).map(item => ({
     category: item,
     icons: 'products',
     total: reducerCategory[item],
-    chart: reducerDiscription,
+    chart: Object.keys(
+      transactionsByMonth
+        .filter(i => i.category === item)
+        .reduce(
+          (acc, c) => (
+            (acc[c.description] = (acc[c.description] || 0) + c.value), acc
+          ),
+          {},
+        ),
+    ).map(item => ({
+      description: item,
+      total: reducerDiscription[item],
+    })),
   }));
-
-  // console.log(result);
 
   sendSuccessResponse(res, result, 201);
 };
