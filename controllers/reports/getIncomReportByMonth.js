@@ -8,16 +8,16 @@ const { NotFound } = require('http-errors');
 const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
-const getTransactionsReport = async (req, res) => {
+const getIncomReportByMonth = async (req, res) => {
   const { month, year } = req.query;
   const { _id } = req.user;
 
-  console.log(month, year);
+  // console.log(month, year);
 
   // получаем список всех транзакций расходов user
   const transactions = await Transaction.find({
     owner: _id,
-    expenses: false,
+    expenses: true,
   });
 
   // console.log(transactions);
@@ -28,18 +28,6 @@ const getTransactionsReport = async (req, res) => {
 
   const transactionsByYear = [];
   const transactionsByMonth = [];
-
-  const newReport = {
-    category: '',
-    total: null,
-    icon: '',
-    chart: [
-      {
-        description: '',
-        total: null,
-      },
-    ],
-  };
 
   // все транзакции за определенный год
   transactions.map(transaction => {
@@ -69,39 +57,41 @@ const getTransactionsReport = async (req, res) => {
       };
 
       transactionsByMonth.push(item);
-      // console.log(transactionsByMonth);
+      console.log(transactionsByMonth);
     }
   });
+
+  const temp = transactionsByMonth.filter(item => item.category === 'ЗП');
+  console.log(temp);
 
   // вычисление расходов по категория
   const reducerCategory = transactionsByMonth.reduce(
     (acc, c) => ((acc[c.category] = (acc[c.category] || 0) + c.value), acc),
     {},
   );
-  console.log(
-    Object.keys(reducerCategory).map(item => ({
-      category: item,
-      total: reducerCategory[item],
-    })),
-  );
+
+  console.log(reducerCategory);
 
   // получение расходов по описаниям
-  const reducerDiscription = transactionsByMonth.reduce(
+  const reducerDiscription = temp.reduce(
     (acc, c) => (
       (acc[c.description] = (acc[c.description] || 0) + c.value), acc
     ),
     {},
   );
 
-  // console.log(reducerDiscription);
+  console.log(reducerDiscription);
 
   const result = Object.keys(reducerCategory).map(item => ({
     category: item,
     icons: 'products',
     total: reducerCategory[item],
+    chart: reducerDiscription,
   }));
+
+  // console.log(result);
 
   sendSuccessResponse(res, result, 201);
 };
 
-module.exports = getTransactionsReport;
+module.exports = getIncomReportByMonth;

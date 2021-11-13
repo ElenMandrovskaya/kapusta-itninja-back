@@ -5,9 +5,14 @@ const { controllerWrapper, authenticate } = require('../../middlewares');
 
 // эндпотнт получения информации о транзакциях по категориям за конкретный месяц и год
 router.get(
-  '/transactions/:userId',
+  '/monthlyexpense',
   authenticate,
-  controllerWrapper(ctrl.getTransactionsReport),
+  controllerWrapper(ctrl.getExpenseReportByMonth),
+);
+router.get(
+  '/monthlyincome',
+  authenticate,
+  controllerWrapper(ctrl.getIncomReportByMonth),
 );
 router.get('/expense', authenticate, controllerWrapper(ctrl.getExpenseReport));
 router.get('/income', authenticate, controllerWrapper(ctrl.getIncomeReport));
