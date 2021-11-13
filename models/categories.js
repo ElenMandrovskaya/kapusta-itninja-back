@@ -12,7 +12,7 @@ const categorySchema = Schema(
       required: [true, 'Type of operation is required'],
       default: false,
     },
-    icons: {
+    icon: {
       type: String,
     },
   },
