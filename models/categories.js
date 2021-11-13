@@ -12,6 +12,9 @@ const categorySchema = Schema(
       required: [true, 'Type of operation is required'],
       default: false,
     },
+    icons: {
+      type: String,
+    },
   },
   { versionKey: false, timestamps: true },
 );
@@ -19,6 +22,7 @@ const categorySchema = Schema(
 const categorySchemaJoi = Joi.object({
   name: Joi.string().required(),
   typeOfOperation: Joi.boolean(),
+  icons: Joi.string(),
 });
 
 const Category = model('category', categorySchema);
