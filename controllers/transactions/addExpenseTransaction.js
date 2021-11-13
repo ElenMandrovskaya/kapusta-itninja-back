@@ -19,7 +19,8 @@ const addExpenseTransaction = async (req, res) => {
     throw new NotFound('Category not found');
   }
 
-  const { name, typeOfOperation } = category;
+  const { name, typeOfOperation, icon } = category;
+
   const newTransaction = {
     ...req.body,
     date: {
@@ -30,7 +31,9 @@ const addExpenseTransaction = async (req, res) => {
     owner: req.user._id,
     category: name,
     expenses: typeOfOperation,
+    icon: icon,
   };
+
   const result = await Transaction.create(newTransaction);
   sendSuccessResponse(res, { result }, 201);
 };
