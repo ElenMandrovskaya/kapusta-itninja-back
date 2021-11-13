@@ -57,12 +57,9 @@ const getIncomReportByMonth = async (req, res) => {
       };
 
       transactionsByMonth.push(item);
-      console.log(transactionsByMonth);
+      // console.log(transactionsByMonth);
     }
   });
-
-  const temp = transactionsByMonth.filter(item => item.category === 'ЗП');
-  console.log(temp);
 
   // вычисление расходов по категория
   const reducerCategory = transactionsByMonth.reduce(
@@ -70,26 +67,32 @@ const getIncomReportByMonth = async (req, res) => {
     {},
   );
 
-  console.log(reducerCategory);
-
   // получение расходов по описаниям
-  const reducerDiscription = temp.reduce(
+  const reducerDiscription = transactionsByMonth.reduce(
     (acc, c) => (
       (acc[c.description] = (acc[c.description] || 0) + c.value), acc
     ),
     {},
   );
 
-  console.log(reducerDiscription);
-
   const result = Object.keys(reducerCategory).map(item => ({
     category: item,
     icons: 'products',
     total: reducerCategory[item],
-    chart: reducerDiscription,
+    chart: Object.keys(
+      transactionsByMonth
+        .filter(i => i.category === item)
+        .reduce(
+          (acc, c) => (
+            (acc[c.description] = (acc[c.description] || 0) + c.value), acc
+          ),
+          {},
+        ),
+    ).map(item => ({
+      description: item,
+      total: reducerDiscription[item],
+    })),
   }));
-
-  // console.log(result);
 
   sendSuccessResponse(res, result, 201);
 };
