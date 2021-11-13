@@ -29,7 +29,6 @@ const getTransactionsReport = async (req, res) => {
   const transactionsByYear = [];
   const transactionsByMonth = [];
 
-  const result = [];
   const newReport = {
     category: '',
     total: null,
@@ -96,14 +95,13 @@ const getTransactionsReport = async (req, res) => {
 
   // console.log(reducerDiscription);
 
-  result.push(
-    Object.keys(reducerCategory).map(item => ({
-      category: item,
-      icons: 'products',
-      total: reducerCategory[item],
-    })),
-  );
-  sendSuccessResponse(res, { result }, 201);
+  const result = Object.keys(reducerCategory).map(item => ({
+    category: item,
+    icons: 'products',
+    total: reducerCategory[item],
+  }));
+
+  sendSuccessResponse(res, result, 201);
 };
 
 module.exports = getTransactionsReport;
