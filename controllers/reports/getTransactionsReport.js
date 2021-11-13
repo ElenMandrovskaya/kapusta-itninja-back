@@ -12,12 +12,12 @@ const getTransactionsReport = async (req, res) => {
   const { month, year } = req.query;
   const { _id } = req.user;
 
-  // console.log(month, year);
+  console.log(month, year);
 
   // получаем список всех транзакций расходов user
   const transactions = await Transaction.find({
     owner: _id,
-    expenses: true,
+    expenses: false,
   });
 
   // console.log(transactions);
@@ -99,6 +99,7 @@ const getTransactionsReport = async (req, res) => {
   result.push(
     Object.keys(reducerCategory).map(item => ({
       category: item,
+      icons: 'products',
       total: reducerCategory[item],
     })),
   );
