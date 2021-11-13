@@ -15,7 +15,6 @@ const login = async (req, res) => {
   }
 
   const { name, balance } = user;
-  console.log(name);
 
   const token = user.createToken();
   await User.findByIdAndUpdate(user._id, { token });
