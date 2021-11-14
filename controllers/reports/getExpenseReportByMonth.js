@@ -5,22 +5,18 @@
 */
 
 const { NotFound } = require('http-errors');
-const { Transaction } = require('../../models');
+const { Transaction, Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
 const getExpenseReportByMonth = async (req, res) => {
   const { month, year } = req.query;
   const { _id } = req.user;
 
-  // console.log(month, year);
-
   // получаем список всех транзакций расходов user
   const transactions = await Transaction.find({
     owner: _id,
     expenses: false,
   });
-
-  // console.log(transactions);
 
   if (!transactions) {
     throw new NotFound('Transaction not found');
@@ -31,13 +27,13 @@ const getExpenseReportByMonth = async (req, res) => {
 
   // все транзакции за определенный год
   transactions.map(transaction => {
-    const { date, description, icons, value, category } = transaction;
+    const { date, icon, description, icons, value, category } = transaction;
 
     if (year === transaction.date.year) {
       const item = {
         date,
+        icon,
         description,
-        icons,
         value,
         category,
       };
@@ -45,19 +41,19 @@ const getExpenseReportByMonth = async (req, res) => {
     }
   });
 
+  // все транзакции за определенный месяц
   transactionsByYear.map(transaction => {
-    const { description, icons, value, category } = transaction;
+    const { description, icon, value, category } = transaction;
 
     if (month === transaction.date.month) {
       const item = {
         description,
-        icons,
+        icon,
         value,
         category,
       };
 
       transactionsByMonth.push(item);
-      // console.log(transactionsByMonth);
     }
   });
 
@@ -67,7 +63,7 @@ const getExpenseReportByMonth = async (req, res) => {
     {},
   );
 
-  // получение расходов по описаниям
+  // получение расходов по описаниям транзакций
   const reducerDiscription = transactionsByMonth.reduce(
     (acc, c) => (
       (acc[c.description] = (acc[c.description] || 0) + c.value), acc
@@ -75,10 +71,13 @@ const getExpenseReportByMonth = async (req, res) => {
     {},
   );
 
+  // создание ответа
   const result = Object.keys(reducerCategory).map(item => ({
     category: item,
-    icons: 'products',
+    // вытягиваем название иконок для фронта из транзакций
+    icon: transactionsByMonth.find(i => i.category === item).icon,
     total: reducerCategory[item],
+    // полученик списка описаний расходов/доходов с вычисление их суммы
     chart: Object.keys(
       transactionsByMonth
         .filter(i => i.category === item)
