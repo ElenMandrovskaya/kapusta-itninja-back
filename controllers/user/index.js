@@ -1,6 +1,6 @@
 const signup = require('./signup');
-// const google = require('./google');
-// const googleRedirect = require('./googleRedirect');
+const google = require('./google');
+const googleRedirect = require('./googleRedirect');
 const verify = require('./verify');
 const repeatVerification = require('./repeatVerification');
 const login = require('./login');
@@ -12,8 +12,8 @@ const updateBalance = require('./updateBalance');
 
 module.exports = {
   signup,
-  // google,
-  // googleRedirect,
+  google,
+  googleRedirect,
   login,
   logout,
   current,
