@@ -8,6 +8,17 @@ const {
 } = require('../../middlewares');
 const { transactionsSchemaJoi } = require('../../models/transactions');
 
+router.get(
+  '/expense',
+  authenticate,
+  controllerWrapper(ctrl.getExpenseTransactions),
+);
+router.get(
+  '/income',
+  authenticate,
+  controllerWrapper(ctrl.getIncomeTransactions),
+);
+
 router.post(
   '/expense/:categoryId',
   authenticate,

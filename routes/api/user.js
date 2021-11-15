@@ -8,6 +8,9 @@ const {
 } = require('../../middlewares');
 const { userSchemaJoi } = require('../../models/user');
 
+// router.get('/google', controllerWrapper(ctrl.google));
+// router.get('/googleRedirect', controllerWrapper(ctrl.googleRedirect));
+
 router.post(
   '/signup',
   validation(userSchemaJoi),
