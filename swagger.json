@@ -46,7 +46,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationResponses"
+                "$ref": "#/components/schemas/RegistrationRequest"
               }
             }
           }
@@ -115,6 +115,69 @@
         }
       }
     },
+    "user/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "User login",
+
+        "parameters": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "user/logout": {
+      "get": {
+        "tags": ["Users"]
+      }
+    },
+    "user/current": {
+      "get": {
+        "tags": ["Users"]
+      }
+    },
+    "user/balance": {
+      "get": {
+        "tags": ["Users"]
+      },
+      "post": {
+        "tags": ["Users"]
+      },
+      "patch": {
+        "tags": ["Users"]
+      }
+    },
     "/transactions/expense/": {
       "post": {
         "tags": ["Transactions"],
@@ -126,7 +189,7 @@
             "name": "categoryId",
             "required": true,
             "type": "string",
-            "descriptio": "Transaction category Id"
+            "description": "Transaction category Id"
           }
         ],
 
@@ -138,7 +201,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/models/users"
+                "$ref": "#/components/schemas/AddExpenseTransactionRequest"
               }
             }
           }
@@ -172,6 +235,10 @@
         "type": "object",
         "required": ["name", "email", "password"],
         "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name"
+          },
           "email": {
             "type": "string",
             "description": "User's email",
@@ -216,13 +283,84 @@
       },
       "VerifyRequest": {},
       "VerifyResponse": {},
-      "LoginRequest": {},
-      "LoginResponse": {},
-      "CurrentUserRespons": {},
-      "CurrentUserBalanceResponse": {},
-      "AddCurentUserBalanceRequest": {},
-      "AddCurentUserBalanceResponse": {},
-      "UpdateCurrentUserBalanceResponce": {}
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "description": "User's token",
+              "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "Vasiya"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "balance": {
+              "type": "string",
+              "description": "User's balance",
+              "example": "54000"
+            }
+          }
+        },
+        "example": {
+          "token": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd",
+          "user": {
+            "name": "Vasiya",
+            "email": "vasiya1999@gmail.com",
+            "balance": 52000
+          }
+        }
+      },
+      "CurrentUserRespons": {
+        "type": "object",
+        "properties": {}
+      },
+      "CurrentUserBalanceResponse": {
+        "type": "object",
+        "properties": {}
+      },
+      "AddCurentUserBalanceRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "AddCurentUserBalanceResponse": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateCurrentUserBalanceResponce": {
+        "type": "object",
+        "properties": {}
+      },
+      "AddExpenseTransactionRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      }
     },
     "securitySchemes": {
       "Bearer": {
