@@ -23,7 +23,8 @@
     "mongoose": "^6.0.10",
     "morgan": "1.10.0",
     "multer": "^1.4.3",
-    "nanoid": "^3.1.30"
+    "nanoid": "^3.1.30",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "eslint": "^7.19.0",

@@ -2,6 +2,8 @@ const express = require('express');
 // const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 require('dotenv').config();
 
 const categoriesRouter = require('./routes/api/categories');
@@ -19,6 +21,9 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+// подключаем swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/categories', categoriesRouter);
 // app.use('/link', (req, res) => {
