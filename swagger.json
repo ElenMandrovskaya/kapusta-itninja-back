@@ -115,7 +115,7 @@
         }
       }
     },
-    "user/login": {
+    "/user/login": {
       "post": {
         "tags": ["Users"],
         "summary": "User login",
@@ -157,17 +157,17 @@
         }
       }
     },
-    "user/logout": {
+    "/user/logout": {
       "get": {
         "tags": ["Users"]
       }
     },
-    "user/current": {
+    "/user/current": {
       "get": {
         "tags": ["Users"]
       }
     },
-    "user/balance": {
+    "/user/balance": {
       "get": {
         "tags": ["Users"]
       },
