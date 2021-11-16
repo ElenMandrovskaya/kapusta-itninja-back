@@ -17,7 +17,6 @@ const signup = async (req, res) => {
   // newUser.setAvatar(gravatar.url(email));
 
   const { verifyToken } = await newUser.save();
-  // await newUser.save();
 
   const msg = {
     to: email,
