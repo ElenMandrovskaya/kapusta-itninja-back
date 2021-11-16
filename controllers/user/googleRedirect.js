@@ -1,9 +1,6 @@
 const queryString = require('query-string');
-const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const { User } = require('../../models');
-
-const SECRET_KEY = process.env.SECRET_KEY;
 
 const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
@@ -34,44 +31,27 @@ const googleRedirect = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    const newUser = await User.create({
-      name,
-      password: id,
-      email,
-    });
-    const { _id } = newUser;
-    const payload = {
-      _id,
-    };
-    const token = jwt.sign(payload, SECRET_KEY);
+    const newUser = new User({ name, email, verify: true });
+    newUser.setPassword(id);
+    await newUser.save();
+
+    const token = newUser.createToken();
+
     await User.findByIdAndUpdate(_id, { token });
     const userToken = await User.findOne({ token });
-    return res.redirect(`${process.env.FRONTEND_URL}?token=${userToken.token}`);
+    return res.redirect(
+      `${process.env.FRONTEND_URL}?token=${userToken.token}&email=${email}`,
+    );
   }
 
   const { _id } = user;
-  const payload = { _id };
-  const token = jwt.sign(payload, SECRET_KEY);
+  const token = user.createToken();
+
   await User.findByIdAndUpdate(_id, { token });
   const userToken = await User.findOne({ token });
-  res.redirect(`${process.env.FRONTEND_URL}?token=${userToken.token}`);
+  res.redirect(
+    `${process.env.FRONTEND_URL}?token=${userToken.token}&email=${email}`,
+  );
 };
-
-//   const newUser = new User({ name, email });
-//   newUser.setVerifyToken(nanoid(10));
-//   newUser.setPassword(id);
-// newUser.setAvatar(gravatar.url(email));
-
-//   const { verifyToken } = await newUser.save();
-//   await newUser.save();
-//   console.log(userData);
-// userData.data.email
-// ...
-// ...
-// ...
-//   return res.redirect(
-//     `${process.env.FRONTEND_URL}?email=${userData.data.email}`,
-//   );
-// };
 
 module.exports = googleRedirect;
