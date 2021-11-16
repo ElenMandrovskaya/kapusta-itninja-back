@@ -20,6 +20,7 @@ const addExpenseTransaction = async (req, res) => {
   }
 
   const { name, typeOfOperation, icon } = category;
+  const typeTransaction = typeOfOperation === false ? 'Expences' : 'Incomes';
 
   const newTransaction = {
     ...req.body,
@@ -31,6 +32,7 @@ const addExpenseTransaction = async (req, res) => {
     owner: req.user._id,
     category: name,
     expenses: typeOfOperation,
+    typeTransaction,
     icon,
   };
 

@@ -42,7 +42,7 @@ const userSchema = Schema(
     },
     verifyToken: {
       type: String,
-      required: [true, 'Verify token is required'],
+      // required: [true, 'Verify token is required'],
     },
     balance: {
       type: Number,
