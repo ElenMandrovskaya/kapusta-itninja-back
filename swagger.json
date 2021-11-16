@@ -1,0 +1,373 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "KAPUSTA API docs",
+    "description": "Description of KAPUSTA API",
+    "license": {}
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [
+    { "url": "http://localhost:3000" },
+    { "url": "https://kapusta-finance-tracker.herokuapp.com/" }
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Transactions",
+      "description": "Transactions endpoints"
+    },
+    {
+      "name": "Reports",
+      "description": "Reports endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Categories endpoints"
+    }
+  ],
+  "paths": {
+    "/user/signup": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "User registration",
+
+        "parameters": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "user/verify": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "User verification",
+
+        "parameters": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "User login",
+
+        "parameters": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": ["Users"]
+      }
+    },
+    "/user/current": {
+      "get": {
+        "tags": ["Users"]
+      }
+    },
+    "/user/balance": {
+      "get": {
+        "tags": ["Users"]
+      },
+      "post": {
+        "tags": ["Users"]
+      },
+      "patch": {
+        "tags": ["Users"]
+      }
+    },
+    "/transactions/expense/": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Add user expense transaction ",
+
+        "parameters": [
+          {
+            "in": "paths",
+            "name": "categoryId",
+            "required": true,
+            "type": "string",
+            "description": "Transaction category Id"
+          }
+        ],
+
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddExpenseTransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "Vasiya"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "verifyToken": {
+              "type": "string",
+              "description": "User's verifu token",
+              "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
+            }
+          }
+        },
+        "example": [
+          {
+            "name": "Vasiya",
+            "email": "vasiya1999@gmail.com",
+            "verifyToken": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
+          }
+        ]
+      },
+      "VerifyRequest": {},
+      "VerifyResponse": {},
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "description": "User's token",
+              "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
+            },
+            "name": {
+              "type": "string",
+              "description": "User's name",
+              "example": "Vasiya"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "balance": {
+              "type": "string",
+              "description": "User's balance",
+              "example": "54000"
+            }
+          }
+        },
+        "example": {
+          "token": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd",
+          "user": {
+            "name": "Vasiya",
+            "email": "vasiya1999@gmail.com",
+            "balance": 52000
+          }
+        }
+      },
+      "CurrentUserRespons": {
+        "type": "object",
+        "properties": {}
+      },
+      "CurrentUserBalanceResponse": {
+        "type": "object",
+        "properties": {}
+      },
+      "AddCurentUserBalanceRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "AddCurentUserBalanceResponse": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateCurrentUserBalanceResponce": {
+        "type": "object",
+        "properties": {}
+      },
+      "AddExpenseTransactionRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

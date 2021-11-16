@@ -4,7 +4,7 @@
 3.
 */
 
-const { NotFound } = require('http-errors');
+const { NotFound, BadRequest } = require('http-errors');
 const { Transaction, Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
@@ -27,7 +27,7 @@ const getExpenseReportByMonth = async (req, res) => {
 
   // все транзакции за определенный год
   transactions.map(transaction => {
-    const { date, icon, description, icons, value, category } = transaction;
+    const { date, icon, description, value, category } = transaction;
 
     if (year === transaction.date.year) {
       const item = {
@@ -92,6 +92,10 @@ const getExpenseReportByMonth = async (req, res) => {
       total: reducerDiscription[item],
     })),
   }));
+
+  if (result.length === 0) {
+    throw new BadRequest('There are no transaction on this month');
+  }
 
   sendSuccessResponse(res, result, 201);
 };
