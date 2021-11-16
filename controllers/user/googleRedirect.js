@@ -22,7 +22,6 @@ const googleRedirect = async (req, res) => {
     },
   });
 
-  //   console.log(tokenData);
   const userData = await axios({
     url: 'https://www.googleapis.com/oauth2/v2/userinfo',
     method: 'get',
@@ -33,7 +32,6 @@ const googleRedirect = async (req, res) => {
 
   const { id, email, name } = userData.data;
   const user = await User.findOne({ email });
-  console.log(user);
 
   if (!user) {
     const newUser = await User.create({
