@@ -21,6 +21,9 @@ const transactionSchema = Schema(
       type: Boolean,
       default: false,
     },
+    typeTransaction: {
+      type: String,
+    },
     category: {
       type: String,
       required: [true, 'This field is required'],
@@ -47,6 +50,7 @@ const transactionsSchemaJoi = Joi.object({
   category: Joi.string(),
   icon: Joi.string(),
   expenses: Joi.boolean(),
+  typeTransaction: Joi.string(),
 });
 
 const Transaction = model('transaction', transactionSchema);
