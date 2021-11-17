@@ -7,6 +7,7 @@ const { sendSuccessResponse } = require('../../utils');
 const addIncomTransaction = async (req, res) => {
   const { categoryId } = req.params;
   const { day, month, year } = req.query;
+  const { description, value } = req.body;
 
   // получаем категорию из БД
   const category = await Category.findById({ _id: categoryId });
@@ -21,12 +22,15 @@ const addIncomTransaction = async (req, res) => {
   const typeTransaction = typeOfOperation === false ? 'Expenses' : 'Incomes';
 
   const newTransaction = {
-    ...req.body,
+    // ...req.body,
     date: {
       day,
       month,
       year,
     },
+    description:
+      description.toLowerCase().charAt(0).toUpperCase() + description.slice(1),
+    value,
     owner: req.user._id,
     category: name,
     expenses: typeOfOperation,

@@ -8,6 +8,7 @@ const addExpenseTransaction = async (req, res) => {
   const { balance } = req.user;
   const { categoryId } = req.params;
   const { day, month, year } = req.query;
+  const { description, value } = req.body;
 
   const category = await Category.findById({ _id: categoryId });
 
@@ -23,12 +24,15 @@ const addExpenseTransaction = async (req, res) => {
   const typeTransaction = typeOfOperation === false ? 'Expenses' : 'Incomes';
 
   const newTransaction = {
-    ...req.body,
+    // ...req.body,
     date: {
       day,
       month,
       year,
     },
+    description:
+      description.toLowerCase().charAt(0).toUpperCase() + description.slice(1),
+    value,
     owner: req.user._id,
     category: name,
     expenses: typeOfOperation,
