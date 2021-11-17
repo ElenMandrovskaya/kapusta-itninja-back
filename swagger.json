@@ -31,14 +31,12 @@
     }
   ],
   "paths": {
-    "/user/signup": {
+    "/api/user/signup": {
       "post": {
         "tags": ["Users"],
         "summary": "User registration",
 
         "parameters": [],
-
-        "security": [{ "Bearer": [] }],
 
         "requestBody": {
           "description": "Registration's object",
@@ -52,7 +50,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -61,40 +59,26 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
     },
-    "user/verify": {
+    "/api/user/verify": {
       "get": {
         "tags": ["Users"],
         "summary": "User verification",
 
-        "parameters": [],
-
-        "security": [{ "Bearer": [] }],
-
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/"
-              }
-            }
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "description": "User's verifu token",
+            "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
           }
-        },
+        ],
+
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -103,19 +87,11 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
     },
-    "/user/login": {
+    "/api/user/login": {
       "post": {
         "tags": ["Users"],
         "summary": "User login",
@@ -136,7 +112,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -145,29 +121,39 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
     },
-    "/user/logout": {
+    "/api/user/logout": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "User logout",
+
+        "parameters": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/current": {
       "get": {
         "tags": ["Users"]
       }
     },
-    "/user/current": {
-      "get": {
-        "tags": ["Users"]
-      }
-    },
-    "/user/balance": {
+    "/api/user/balance": {
       "get": {
         "tags": ["Users"]
       },
@@ -178,7 +164,7 @@
         "tags": ["Users"]
       }
     },
-    "/transactions/expense/": {
+    "/api/transactions/expense/": {
       "post": {
         "tags": ["Transactions"],
         "summary": "Add user expense transaction ",
@@ -216,14 +202,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
@@ -253,36 +231,52 @@
       },
       "RegistrationResponse": {
         "type": "object",
-        "items": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "Vasiya"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "verifyToken": {
-              "type": "string",
-              "description": "User's verifu token",
-              "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
-            }
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Vasiya"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "verifyToken": {
+            "type": "string",
+            "description": "User's verifu token",
+            "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
           }
         },
-        "example": [
-          {
+
+        "example": {
+          "status": "success",
+          "code": 200,
+          "result": {
             "name": "Vasiya",
             "email": "vasiya1999@gmail.com",
             "verifyToken": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
           }
-        ]
+        }
       },
       "VerifyRequest": {},
-      "VerifyResponse": {},
+      "VerifyResponse": {
+        "type": "object",
+        "properties": {
+          "status": "success",
+          "code": 200,
+          "data": {
+            "message": "Verification successful"
+          },
+          "example": {
+            "status": "success",
+            "code": 200,
+            "data": {
+              "message": "Verification successful"
+            }
+          }
+        }
+      },
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -301,9 +295,11 @@
       },
       "LoginResponse": {
         "type": "object",
-        "items": {
-          "type": "object",
-          "properties": {
+
+        "properties": {
+          "status": "success",
+          "code": 200,
+          "result": {
             "token": {
               "type": "string",
               "description": "User's token",
@@ -326,14 +322,23 @@
             }
           }
         },
+
         "example": {
-          "token": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd",
-          "user": {
-            "name": "Vasiya",
-            "email": "vasiya1999@gmail.com",
-            "balance": 52000
+          "status": "success",
+          "code": 200,
+          "result": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg5OTQyMzQ1OGVhNzBmZTgxMTM3NDgiLCJpYXQiOjE2MzcxNjMxMDN9.Ex1pQwkyGqHwyKDgue3wz8x19OtuWzt8bh-ZoDxJlTk",
+            "user": {
+              "name": "Vyacheslav",
+              "email": "grachv77@gmail.com",
+              "balance": 54000
+            }
           }
         }
+      },
+      "LogoutResponce": {
+        "type": "object",
+        "properties": {}
       },
       "CurrentUserRespons": {
         "type": "object",
