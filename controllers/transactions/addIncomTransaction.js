@@ -18,7 +18,7 @@ const addIncomTransaction = async (req, res) => {
 
   // получаем тип транзакции
   const { name, typeOfOperation, icon } = category;
-  const typeTransaction = typeOfOperation === false ? 'Expences' : 'Incomes';
+  const typeTransaction = typeOfOperation === false ? 'Expenses' : 'Incomes';
 
   const newTransaction = {
     ...req.body,
