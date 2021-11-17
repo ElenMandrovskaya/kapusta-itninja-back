@@ -31,14 +31,12 @@
     }
   ],
   "paths": {
-    "/user/signup": {
+    "/api/user/signup": {
       "post": {
         "tags": ["Users"],
         "summary": "User registration",
 
         "parameters": [],
-
-        "security": [{ "Bearer": [] }],
 
         "requestBody": {
           "description": "Registration's object",
@@ -52,7 +50,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -61,68 +59,44 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
     },
-    "user/verify": {
+    "/api/user/verify": {
       "get": {
         "tags": ["Users"],
         "summary": "User verification",
 
-        "parameters": [],
-
-        "security": [{ "Bearer": [] }],
-
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/"
-              }
-            }
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "description": "User's verifu token",
+            "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
           }
-        },
+        ],
+
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/VerifyResponse"
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
     },
-    "/user/login": {
+    "/api/user/login": {
       "post": {
         "tags": ["Users"],
         "summary": "User login",
 
         "parameters": [],
-
-        "security": [{ "Bearer": [] }],
 
         "requestBody": {
           "description": "Login's object",
@@ -136,7 +110,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -145,40 +119,123 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
     },
-    "/user/logout": {
+    "/api/user/logout": {
       "get": {
-        "tags": ["Users"]
+        "tags": ["Users"],
+        "summary": "User logout",
+
+        "parameters": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponce"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/user/current": {
+    "/api/user/current": {
       "get": {
-        "tags": ["Users"]
+        "tags": ["Users"],
+        "summary": "Current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/user/balance": {
+    "/api/user/balance": {
       "get": {
-        "tags": ["Users"]
+        "tags": ["Users"],
+        "summary": "Get curent user balance",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserBalanceResponse"
+                }
+              }
+            }
+          }
+        }
       },
       "post": {
-        "tags": ["Users"]
+        "tags": ["Users"],
+        "summary": "Add curent user balance",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Add user's balance",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCurentUserBalanceRequest"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserBalanceResponse"
+                }
+              }
+            }
+          }
+        }
       },
       "patch": {
-        "tags": ["Users"]
+        "tags": ["Users"],
+        "summary": "Update  curent user balance",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserBalanceResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/transactions/expense/": {
+    "/api/transactions/expense/": {
       "post": {
         "tags": ["Transactions"],
         "summary": "Add user expense transaction ",
@@ -212,18 +269,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/AddExpenseTransactionResponce"
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
           }
         }
       }
@@ -253,36 +302,47 @@
       },
       "RegistrationResponse": {
         "type": "object",
-        "items": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "Vasiya"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "verifyToken": {
-              "type": "string",
-              "description": "User's verifu token",
-              "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
-            }
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Vasiya"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "verifyToken": {
+            "type": "string",
+            "description": "User's verifu token",
+            "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
           }
         },
-        "example": [
-          {
+
+        "example": {
+          "status": "success",
+          "code": 200,
+          "result": {
             "name": "Vasiya",
             "email": "vasiya1999@gmail.com",
             "verifyToken": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
           }
-        ]
+        }
       },
       "VerifyRequest": {},
-      "VerifyResponse": {},
+      "VerifyResponse": {
+        "type": "object",
+        "properties": {},
+
+        "example": {
+          "status": "success",
+          "code": 200,
+          "data": {
+            "message": "Verification email sent"
+          }
+        }
+      },
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -301,64 +361,136 @@
       },
       "LoginResponse": {
         "type": "object",
-        "items": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string",
-              "description": "User's token",
-              "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
-            },
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "Vasiya"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "balance": {
-              "type": "string",
-              "description": "User's balance",
-              "example": "54000"
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's verify token",
+            "example": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Vasiya"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": 5400
+              }
             }
           }
         },
         "example": {
-          "token": "56qhj124786qjhdayutjhkdsfu87sd6rwjk.djhjhd",
-          "user": {
-            "name": "Vasiya",
-            "email": "vasiya1999@gmail.com",
-            "balance": 52000
+          "status": "success",
+          "code": 200,
+          "result": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg5OTQyMzQ1OGVhNzBmZTgxMTM3NDgiLCJpYXQiOjE2MzcxNzQ1NDV9.vD1d-jzFkyCVc6cO2cVgiQCYr_jiVWRrsmdO4F2B5Qo",
+            "user": {
+              "name": "Vyacheslav",
+              "email": "grachv77@gmail.com",
+              "balance": 54000
+            }
           }
         }
       },
-      "CurrentUserRespons": {
+      "LogoutResponce": {
+        "example": {
+          "status": "success",
+          "code": 200,
+          "data": null
+        }
+      },
+      "CurrentUserResponse": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's Id",
+                "example": "61899423458ea70fe8113748"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Vasiya"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "verify": {
+                "type": "boolean",
+                "description": "Is user verify"
+              },
+              "balance": {
+                "type": "number",
+                "description": "User's balance",
+                "example": 5400
+              }
+            }
+          }
+        },
+
+        "example": {
+          "status": "success",
+          "code": 201,
+          "result": {
+            "user": {
+              "_id": "61899423458ea70fe8113748",
+              "name": "Vyacheslav",
+              "email": "grachv77@gmail.com",
+              "verify": true,
+              "balance": 54000
+            }
+          }
+        }
       },
       "CurrentUserBalanceResponse": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 5400
+          }
+        },
+        "example": {
+          "status": "success",
+          "code": 200,
+          "result": {
+            "balance": 54000
+          }
+        }
       },
       "AddCurentUserBalanceRequest": {
         "type": "object",
-        "required": [],
-        "properties": {}
-      },
-      "AddCurentUserBalanceResponse": {
-        "type": "object",
-        "properties": {}
-      },
-      "UpdateCurrentUserBalanceResponce": {
-        "type": "object",
-        "properties": {}
+        "required": ["balance"],
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 5400
+          }
+        }
       },
       "AddExpenseTransactionRequest": {
         "type": "object",
         "required": [],
+        "properties": {}
+      },
+      "AddExpenseTransactionResponse": {
+        "type": "object",
         "properties": {}
       }
     },
