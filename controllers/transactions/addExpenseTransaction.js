@@ -20,7 +20,7 @@ const addExpenseTransaction = async (req, res) => {
   }
 
   const { name, typeOfOperation, icon } = category;
-  const typeTransaction = typeOfOperation === false ? 'Expences' : 'Incomes';
+  const typeTransaction = typeOfOperation === false ? 'Expenses' : 'Incomes';
 
   const newTransaction = {
     ...req.body,
