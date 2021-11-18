@@ -36,6 +36,7 @@ const googleRedirect = async (req, res) => {
     await newUser.save();
 
     const token = newUser.createToken();
+    const { _id } = newUser;
 
     await User.findByIdAndUpdate(_id, { token });
     const userToken = await User.findOne({ token });
