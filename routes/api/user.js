@@ -10,6 +10,7 @@ const { userSchemaJoi } = require('../../models/user');
 
 router.get('/google', controllerWrapper(ctrl.google));
 router.get('/google-redirect', controllerWrapper(ctrl.googleRedirect));
+router.post('/user-google', controllerWrapper(ctrl.getUserByEmail));
 
 router.post(
   '/signup',
