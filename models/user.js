@@ -29,6 +29,10 @@ const userSchema = Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
+    google: {
+      type: Boolean,
+      default: false,
+    },
     token: {
       type: String,
       default: null,
