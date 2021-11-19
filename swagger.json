@@ -323,13 +323,121 @@
         "patametres": []
       }
     },
+    "api/transactions/expense": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "api/transaction/income": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "api/reports/monthlyexpense": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "api/reports/monthlyincome": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "api/reports/expense": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "api/reports/income": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
     "/api/categories": {
       "get": {
         "tags": ["Categories"],
         "summary": "",
         "parameters": [],
         "security": [],
-        "responses": {}
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/categories/expense": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      },
+      "post": {
+        "tags": ["Categories"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/categories/income": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
+      },
+      "post": {
+        "tags": ["Categories"],
+        "summary": "",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {}
+        }
       }
     }
   },
@@ -573,6 +681,31 @@
                 "description": "year of transaction"
               }
             }
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction's description",
+            "example": "Шоколад"
+          },
+          "value": {
+            "type": "number",
+            "description": "Transaction's value",
+            "example": 50
+          },
+          "expenses": {
+            "type": "boolean",
+            "description": "Признак расхода/дохода",
+            "example": true
+          },
+          "category": {
+            "type": "string",
+            "description": "Categories name",
+            "example": "Продукты"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Transaction's owner",
+            "example": "618e90073e5ebf49a1105090"
           }
         },
         "example": {
