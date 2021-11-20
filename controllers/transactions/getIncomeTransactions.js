@@ -1,4 +1,4 @@
-const { NotFound, BadRequest } = require('http-errors');
+const { NotFound } = require('http-errors');
 const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
@@ -10,11 +10,11 @@ const getIncomeTransactions = async (req, res) => {
     owner: _id,
   });
 
-  if (transactions.length === 0) {
-    throw new BadRequest('There are no transactions');
+  if (!transactions) {
+    throw new NotFound('There are no transactions');
   }
 
-  sendSuccessResponse(res, { transactions }, 200);
+  sendSuccessResponse(res, { transactions });
 };
 
 module.exports = getIncomeTransactions;
