@@ -12,7 +12,11 @@ const updateBalance = async (req, res) => {
   // }
 
   const { value, expenses } = transaction;
-  const updateBalance = expenses === false ? balance - value : balance + value;
+  // const updateBalance =
+  //   typeTransaction === 'Expenses' ? balance - value : balance + value;
+
+  const updateBalance = expenses ? balance - value : balance + value;
+
   await User.findByIdAndUpdate(
     { _id },
     { balance: updateBalance },
