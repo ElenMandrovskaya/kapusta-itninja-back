@@ -4,7 +4,7 @@
 3.
 */
 
-const { NotFound, BadRequest } = require('http-errors');
+const { NotFound } = require('http-errors');
 const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 

@@ -308,82 +308,230 @@
             "name": "categoryId",
             "required": true,
             "type": "string",
-            "description": "Category Id"
+            "description": "Transaction category Id"
+          },
+          {
+            "in": "query",
+            "name": "day",
+            "required": true,
+            "type": "string",
+            "description": "day of transaction"
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "type": "string",
+            "description": "day of transaction"
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "day of transaction"
           }
         ],
-        "security": [],
-        "requestBody": {},
-        "responses": {}
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddTransactionResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "api/transacrions/{categoryId}": {
+    "/api/transacrions/{transactionId}": {
       "delete": {
         "tags": ["Transactions"],
-        "summary": "Delete transaction",
-        "patametres": []
+        "summary": "Delete transaction by ",
+        "patametres": [
+          {
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "type": "string",
+            "description": "Transaction category Id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteTransactionResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "api/transactions/expense": {
+    "/api/transactions/expense": {
       "get": {
         "tags": ["Transactions"],
-        "summary": "",
+        "summary": "Get expense transaction ",
         "parameters": [],
-        "security": [],
+        "security": [{ "Bearer": [] }],
         "responses": {
-          "200": {}
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllTransactionResponse"
+                }
+              }
+            }
+          }
         }
       }
     },
-    "api/transaction/income": {
+    "/api/transaction/income": {
       "get": {
         "tags": ["Transactions"],
-        "summary": "",
+        "summary": "Get income transaction",
         "parameters": [],
-        "security": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllTransactionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reports/monthlyexpense": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Monthly expense reports",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "type": "string",
+            "description": "month of transaction"
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "year of transaction"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": "#/components/schemas/MonthlyReportsResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reports/monthlyincome": {
+      "get": {
+        "tags": ["Reports"],
+        "summary": "Monthly income reports",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "type": "string",
+            "description": "month of transaction"
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "year of transaction"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
         "responses": {
           "200": {}
         }
       }
     },
-    "api/reports/monthlyexpense": {
+    "/api/reports/expense": {
       "get": {
         "tags": ["Reports"],
-        "summary": "",
-        "parameters": [],
-        "security": [],
+        "summary": "Expense reports by year",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "year of transaction"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
         "responses": {
-          "200": {}
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthlyReportResponse"
+                }
+              }
+            }
+          }
         }
       }
     },
-    "api/reports/monthlyincome": {
+    "/api/reports/income": {
       "get": {
         "tags": ["Reports"],
-        "summary": "",
-        "parameters": [],
-        "security": [],
-        "responses": {
-          "200": {}
-        }
-      }
-    },
-    "api/reports/expense": {
-      "get": {
-        "tags": ["Reports"],
-        "summary": "",
-        "parameters": [],
-        "security": [],
-        "responses": {
-          "200": {}
-        }
-      }
-    },
-    "api/reports/income": {
-      "get": {
-        "tags": ["Reports"],
-        "summary": "",
-        "parameters": [],
-        "security": [],
+        "summary": "Income reports by year",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "type": "string",
+            "description": "year of transaction"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
         "responses": {
           "200": {}
         }
@@ -392,51 +540,105 @@
     "/api/categories": {
       "get": {
         "tags": ["Categories"],
-        "summary": "",
+        "summary": "Get all categories",
         "parameters": [],
         "security": [],
+
         "responses": {
-          "200": {}
+          "200": {
+            "description": "All categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllCategoriesResponse"
+                }
+              }
+            }
+          }
         }
       }
     },
     "/api/categories/expense": {
       "get": {
         "tags": ["Categories"],
-        "summary": "",
+        "summary": "Get expense categories",
         "parameters": [],
         "security": [],
+
         "responses": {
           "200": {}
         }
       },
       "post": {
         "tags": ["Categories"],
-        "summary": "",
+        "summary": "Add new expense category",
         "parameters": [],
-        "security": [],
+
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "New category object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCategoryRequest"
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {}
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddCategoryResponse"
+                }
+              }
+            }
+          }
         }
       }
     },
     "/api/categories/income": {
       "get": {
         "tags": ["Categories"],
-        "summary": "",
+        "summary": "Get income categories",
         "parameters": [],
         "security": [],
+
         "responses": {
           "200": {}
         }
       },
       "post": {
         "tags": ["Categories"],
-        "summary": "",
+        "summary": "Add new income category",
         "parameters": [],
-        "security": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "New category object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCategoryRequest"
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {}
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddCategoryResponse"
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -646,7 +848,7 @@
           }
         }
       },
-      "AddExpenseTransactionRequest": {
+      "AddTransactionRequest": {
         "type": "object",
         "required": ["description", "value"],
         "properties": {
@@ -662,7 +864,7 @@
           }
         }
       },
-      "AddExpenseTransactionResponse": {
+      "AddTransactionResponse": {
         "type": "object",
         "properties": {
           "date": {
@@ -726,8 +928,211 @@
             }
           }
         }
+      },
+      "DeleteTransactionResponse": {
+        "type": "object",
+        "property": {
+          "status": "success",
+          "code": 200,
+          "result": {
+            "type": "object",
+            "property": {
+              "message": "Success remove"
+            }
+          }
+        },
+        "example": {
+          "status": "success",
+          "code": 200,
+          "result": {
+            "message": "Success remove"
+          }
+        }
+      },
+      "AllTransactionResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "object",
+              "properties": {
+                "day": {
+                  "type": "string",
+                  "description": "day of transacrion"
+                },
+                "month": {
+                  "type": "string",
+                  "description": "month of transaction"
+                },
+                "year": {
+                  "type": "string",
+                  "description": "year of transaction"
+                }
+              }
+            },
+            "_id": {
+              "type": "string",
+              "description": "Transactions Id",
+              "example": "61899423458ea70fe8113748"
+            },
+            "description": {
+              "type": "string",
+              "description": "Transaction's description",
+              "example": "Шоколад"
+            },
+            "value": {
+              "type": "number",
+              "description": "Transaction's value",
+              "example": 50
+            },
+            "expenses": {
+              "type": "boolean",
+              "description": "Признак расхода/дохода",
+              "example": true
+            },
+            "category": {
+              "type": "string",
+              "description": "Categories name",
+              "example": "Продукты"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Category icon",
+              "example": "products"
+            },
+            "owner": {
+              "type": "string",
+              "description": "Transaction's owner",
+              "example": "618e90073e5ebf49a1105090"
+            }
+          }
+        },
+
+        "example": {
+          "status": "success",
+          "code": 200,
+          "result": {
+            "transactions": [
+              {
+                "date": {
+                  "day": "”1”",
+                  "month": "”2”",
+                  "year": "”2021”"
+                },
+                "_id": "6190c62724883bbe14925cdf",
+                "description": "Мясо",
+                "value": 150,
+                "expenses": false,
+                "category": "Продукты",
+                "icon": "products",
+                "owner": "61899423458ea70fe8113748",
+                "createdAt": "2021-11-14T08:17:43.039Z",
+                "updatedAt": "2021-11-14T08:17:43.039Z"
+              },
+              {
+                "date": {
+                  "day": "”10”",
+                  "month": "”2”",
+                  "year": "”2021”"
+                },
+                "_id": "6190c63224883bbe14925ce3",
+                "description": "Мясо",
+                "value": 550,
+                "expenses": false,
+                "category": "Продукты",
+                "icon": "products",
+                "owner": "61899423458ea70fe8113748",
+                "createdAt": "2021-11-14T08:17:54.882Z",
+                "updatedAt": "2021-11-14T08:17:54.882Z"
+              },
+              {
+                "date": {
+                  "day": "”15”",
+                  "month": "”2”",
+                  "year": "”2021”"
+                },
+                "_id": "6190c63c24883bbe14925ce7",
+                "description": "Мясо",
+                "value": 350,
+                "expenses": false,
+                "category": "Продукты",
+                "icon": "products",
+                "owner": "61899423458ea70fe8113748",
+                "createdAt": "2021-11-14T08:18:04.137Z",
+                "updatedAt": "2021-11-14T08:18:04.137Z"
+              }
+            ]
+          }
+        }
+      },
+      "MonthlyReportsRequest": {
+        "type": "object",
+        "properties": {},
+        "example": {
+          "name": "Test"
+        }
+      },
+      "MonthlyReportsResponse": {
+        "type": "object",
+        "properties": {},
+        "example": {}
+      },
+      "AllCategoriesResponse": {
+        "type": "object",
+        "property": {},
+        "example": {
+          "status": "success",
+          "code": 200,
+          "result": {
+            "categories": [
+              {
+                "_id": "619026a94ff3aead8b416ea1",
+                "name": "Продукты"
+              },
+              {
+                "_id": "619026a94ff3aead8b416eac",
+                "name": "ЗП"
+              },
+              {
+                "_id": "619026a94ff3aead8b416ead",
+                "name": "Доп. доход"
+              }
+            ]
+          }
+        }
+      },
+      "AddCategoryRequest": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of category",
+            "example": "Развлечения"
+          }
+        },
+        "example": {
+          "name": "Развлечения"
+        }
+      },
+      "AddCategoryResponse": {
+        "type": "object",
+        "property": {},
+        "example": {
+          "status": "success",
+          "code": 201,
+          "result": {
+            "category": {
+              "name": "Одежда",
+              "typeOfOperation": false,
+              "_id": "6198fa2c6edbd766ed6a76c6"
+            }
+          }
+        }
       }
     },
+
     "securitySchemes": {
       "Bearer": {
         "type": "http",
