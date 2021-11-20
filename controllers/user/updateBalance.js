@@ -11,11 +11,11 @@ const updateBalance = async (req, res) => {
   //   throw new NotFound('User not found');
   // }
 
-  const { value, expenses } = transaction;
-  // const updateBalance =
-  //   typeTransaction === 'Expenses' ? balance - value : balance + value;
+  const { value, typeTransaction } = transaction;
+  const updateBalance =
+    typeTransaction === 'Expenses' ? balance - value : balance + value;
 
-  const updateBalance = expenses ? balance - value : balance + value;
+  // const updateBalance = expenses ? balance - value : balance + value;
 
   await User.findByIdAndUpdate(
     { _id },
