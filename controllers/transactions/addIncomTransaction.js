@@ -5,6 +5,7 @@ const { Category } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
 const addIncomTransaction = async (req, res) => {
+  const { balance } = req.user;
   const { categoryId } = req.params;
   const { day, month, year } = req.query;
   const { description, value } = req.body;
@@ -39,7 +40,13 @@ const addIncomTransaction = async (req, res) => {
   };
 
   const result = await Transaction.create(newTransaction);
-  sendSuccessResponse(res, { result }, 201);
+  const updateBalance = updateBalanceAfterTransaction(
+    balance,
+    value,
+    typeTransaction,
+  );
+
+  sendSuccessResponse(res, { balance: updateBalance, result }, 201);
 };
 
 module.exports = addIncomTransaction;

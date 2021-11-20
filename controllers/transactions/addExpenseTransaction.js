@@ -2,7 +2,10 @@
 const { NotFound, BadRequest } = require('http-errors');
 const { Transaction } = require('../../models');
 const { Category } = require('../../models');
-const { sendSuccessResponse } = require('../../utils');
+const {
+  sendSuccessResponse,
+  updateBalanceAfterTransaction,
+} = require('../../utils');
 
 const addExpenseTransaction = async (req, res) => {
   const { balance } = req.user;
@@ -41,7 +44,18 @@ const addExpenseTransaction = async (req, res) => {
   };
 
   const result = await Transaction.create(newTransaction);
-  sendSuccessResponse(res, { result }, 201);
+
+  const updateBalance = updateBalanceAfterTransaction(
+    balance,
+    value,
+    typeTransaction,
+  );
+
+  if (updateBalance < 0) {
+    throw new BadRequest('There are no enough money for this purchase');
+  }
+
+  sendSuccessResponse(res, { balance: updateBalance, result }, 201);
 };
 
 module.exports = addExpenseTransaction;

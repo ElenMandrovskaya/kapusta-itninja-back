@@ -1,29 +1,35 @@
 // const { NotFound } = require('http-errors');
 const { User } = require('../../models');
-const { Transaction } = require('../../models');
+// const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
 const updateBalance = async (req, res) => {
-  const { _id, balance } = req.user;
+  const { _id } = req.user;
+  const { balance } = req.body;
 
-  const transaction = await Transaction.findOne({ owner: _id });
-  // if (!transaction) {
-  //   throw new NotFound('User not found');
-  // }
+  const result = await User.findByIdAndUpdate(_id, { balance }, { new: true });
+  sendSuccessResponse(res, { result });
 
-  const { value, typeTransaction } = transaction;
-  const updateBalance =
-    typeTransaction === 'Expenses' ? balance - value : balance + value;
+  // const { _id, balance } = req.user;
 
-  // const updateBalance = expenses ? balance - value : balance + value;
+  // const transaction = await Transaction.findOne({ owner: _id });
+  // // if (!transaction) {
+  // //   throw new NotFound('User not found');
+  // // }
 
-  await User.findByIdAndUpdate(
-    { _id },
-    { balance: updateBalance },
-    { new: true },
-  );
+  // const { value, typeTransaction } = transaction;
+  // const updateBalance =
+  //   typeTransaction === 'Expenses' ? balance - value : balance + value;
 
-  sendSuccessResponse(res, { updateBalance });
+  // // const updateBalance = expenses ? balance - value : balance + value;
+
+  // await User.findByIdAndUpdate(
+  //   { _id },
+  //   { balance: updateBalance },
+  //   { new: true },
+  // );
+
+  // sendSuccessResponse(res, { updateBalance });
 };
 
 module.exports = updateBalance;
