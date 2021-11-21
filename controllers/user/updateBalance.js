@@ -1,4 +1,4 @@
-// const { NotFound } = require('http-errors');
+const { BadRequest } = require('http-errors');
 const { User } = require('../../models');
 const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
@@ -19,6 +19,9 @@ const updateBalance = async (req, res) => {
   const updateBalance =
     typeTransaction === 'Expenses' ? balance - value : balance + value;
 
+  if (updateBalance < 0) {
+    throw new BadRequest('There are no enough money for this purchase');
+  }
   // const updateBalance = expenses === false ? balance - value : balance + value;
 
   await User.findByIdAndUpdate(
