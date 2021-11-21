@@ -4,7 +4,8 @@ const { Transaction } = require('../../models');
 const { sendSuccessResponse } = require('../../utils');
 
 const updateBalance = async (req, res) => {
-  const { _id, balance } = req.user;
+  const { _id } = req.user;
+  const { balance } = req.body;
 
   const transaction = await Transaction.findOne({ owner: _id }).sort({
     $natural: -1,
