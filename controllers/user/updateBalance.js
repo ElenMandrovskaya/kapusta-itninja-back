@@ -6,16 +6,20 @@ const { sendSuccessResponse } = require('../../utils');
 const updateBalance = async (req, res) => {
   const { _id, balance } = req.user;
 
-  const transaction = await Transaction.findOne({ owner: _id });
+  const transaction = await Transaction.findOne({ owner: _id }).sort({
+    $natural: -1,
+  });
+  // console.log(transaction);
   // if (!transaction) {
   //   throw new NotFound('User not found');
   // }
 
   const { value, typeTransaction } = transaction;
+
   const updateBalance =
     typeTransaction === 'Expenses' ? balance - value : balance + value;
 
-  // const updateBalance = expenses ? balance - value : balance + value;
+  // const updateBalance = expenses === false ? balance - value : balance + value;
 
   await User.findByIdAndUpdate(
     { _id },
