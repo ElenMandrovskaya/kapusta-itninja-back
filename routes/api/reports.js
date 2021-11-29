@@ -17,10 +17,4 @@ router.get(
 router.get('/expense', authenticate, controllerWrapper(ctrl.getExpenseReport));
 router.get('/income', authenticate, controllerWrapper(ctrl.getIncomeReport));
 
-// router.get(
-//   '/expense/monthly',
-//   authenticate,
-//   controllerWrapper(ctrl.getExpenseReportByMonth),
-// );
-
 module.exports = router;

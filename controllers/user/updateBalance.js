@@ -10,10 +10,6 @@ const updateBalance = async (req, res) => {
   const transaction = await Transaction.findOne({ owner: _id }).sort({
     $natural: -1,
   });
-  // console.log(transaction);
-  // if (!transaction) {
-  //   throw new NotFound('User not found');
-  // }
 
   const { value, typeTransaction } = transaction;
 
@@ -23,7 +19,6 @@ const updateBalance = async (req, res) => {
   if (updateBalance < 0) {
     throw new BadRequest('There are no enough money for this purchase');
   }
-  // const updateBalance = expenses === false ? balance - value : balance + value;
 
   await User.findByIdAndUpdate(
     { _id },

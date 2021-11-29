@@ -42,10 +42,6 @@ const getIncomeReport = async (req, res) => {
     }))
     .sort((a, b) => (a.month < b.month ? 1 : b.month < a.month ? -1 : 0));
 
-  // if (finalReportArray.length === 0) {
-  //   throw new BadRequest('There are no transactions on this year');
-  // }
-
   sendSuccessResponse(res, { finalReportArray });
 };
 

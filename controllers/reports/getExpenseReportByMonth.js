@@ -18,8 +18,6 @@ const getExpenseReportByMonth = async (req, res) => {
     expenses: false,
   });
 
-  // console.log(transactions);
-
   if (!transactions) {
     throw new NotFound('Transaction not found');
   }
@@ -59,12 +57,6 @@ const getExpenseReportByMonth = async (req, res) => {
     }
   });
 
-  // console.log(transactionsByMonth);
-
-  // if (transactionsByMonth.length === 0) {
-  //   throw new NotFound('There are no transaction on this month');
-  // }
-
   // вычисление расходов по категория
   const reducerCategory = transactionsByMonth.reduce(
     (acc, c) => ((acc[c.category] = (acc[c.category] || 0) + c.value), acc),
@@ -100,10 +92,6 @@ const getExpenseReportByMonth = async (req, res) => {
       total: reducerDiscription[item],
     })),
   }));
-
-  // if (result.length === 0) {
-  //   throw new NotFound('There are no transaction on this month');
-  // }
 
   sendSuccessResponse(res, result);
 };

@@ -5,6 +5,7 @@ const { sendSuccessResponse } = require('../../utils');
 const getExpenseReport = async (req, res) => {
   const { _id } = req.user;
   const { year } = req.query;
+
   const transactions = await Transaction.find({
     expenses: false,
     owner: _id,
@@ -40,10 +41,6 @@ const getExpenseReport = async (req, res) => {
       value: reducer[item],
     }))
     .sort((a, b) => (a.month < b.month ? 1 : b.month < a.month ? -1 : 0));
-
-  // if (finalReportArray.length === 0) {
-  //   throw new BadRequest('There are no transactions on this year');
-  // }
 
   sendSuccessResponse(res, { finalReportArray });
 };

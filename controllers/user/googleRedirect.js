@@ -41,7 +41,6 @@ const googleRedirect = async (req, res) => {
     await User.findByIdAndUpdate(_id, { token });
     const userToken = await User.findOne({ token });
     return res.redirect(
-      // `${process.env.FRONTEND_URL}?token=${userToken.token}&email=${email}`,
       `${process.env.FRONTEND_URL}/google-redirect?email=${email}`,
     );
   }
@@ -51,10 +50,7 @@ const googleRedirect = async (req, res) => {
 
   await User.findByIdAndUpdate(_id, { token });
   const userToken = await User.findOne({ token });
-  res.redirect(
-    // `${process.env.FRONTEND_URL}/google-redirect?token=${userToken.token}&email=${email}`,
-    `${process.env.FRONTEND_URL}/google-redirect?email=${email}`,
-  );
+  res.redirect(`${process.env.FRONTEND_URL}/google-redirect?email=${email}`);
 };
 
 module.exports = googleRedirect;
